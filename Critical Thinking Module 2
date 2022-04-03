@@ -1,0 +1,57 @@
+DROP TABLE OrderTbl;
+DROP TABLE Customer;
+DROP TABLE Employee;
+
+CREATE TABLE Customer (
+	CustNo char(8),
+	CustFirstName varchar(50) NOT NULL,
+	CustLastName varchar(50) NOT NULL,
+	CustCity varchar(17) NOT NULL,
+	CustState char(2) NOT NULL,
+	CustZip char(10) NOT NULL,
+	CustBal numeric(9,2),
+	CONSTRAINT PKCustomer PRIMARY KEY (CustNo)
+	);
+
+INSERT INTO Customer VALUES ('C0954327', 'Sheri', 'Gordon', 'Littleton', 'CO', '80129-5543', '230.00');
+INSERT INTO Customer VALUES ('C1010398', 'Jim', 'Glussman', 'Denver', 'CO', '80111-0033', '200.00');
+INSERT INTO Customer VALUES ('C2388597', 'Beth', 'Taylor', 'Seattle', 'WA', '98103-1121', '500.00');
+INSERT INTO Customer VALUES ('C3340959', 'Betty', 'Wise', 'Seattle', 'WA', '98178-3311', '200.00');
+INSERT INTO Customer VALUES ('C3499503', 'Bob', 'Mann', 'Monroe', 'WA', '98013-1095', '0.00');
+INSERT INTO Customer VALUES ('C8543321', 'Ron', 'Thompson', 'Renton', 'WA', '98666-1289', '85.00');
+
+CREATE TABLE Employee (
+	EmpNo char(8) NOT NULL,
+	EmpFirstName varchar(50) NOT NULL,
+	EmpLastName varchar(50) NOT NULL,
+	EmpPhone char(14) NOT NULL,
+	EmpEmail varchar(50) NOT NULL UNIQUE,
+	CONSTRAINT PKEmployee PRIMARY KEY (EmpNo)
+);
+
+INSERT INTO Employee VALUES ('E1329594', 'Landi', 'Santos', '(303)-789-1234', 'LSantos@bigco.com');
+INSERT INTO Employee VALUES ('E8544399', 'Joe', 'Jenkins', '(303)-221-9875', 'JJenkins@bigco.com');
+INSERT INTO Employee VALUES ('E8843211', 'Amy', 'Tang', '(303)-556-4321', 'ATang@bigco.com');
+INSERT INTO Employee VALUES ('E9345771', 'Colin', 'White', '(303)-221-4453', 'CWhite@bigco.com');
+INSERT INTO Employee VALUES ('E9884325', 'Thomas', 'Johnson', '(303)-556-9987', 'TJohnson@bigco.com');
+INSERT INTO Employee VALUES ('E9954302', 'Mary', 'Hill', '(303)-556-9871', 'MHill@bigco.com');
+
+CREATE TABLE OrderTbl (
+	OrdNo char(8) NOT NULL,
+	OrdDate date NOT NULL,
+	CustNo char(8),
+	EmpNo char(8),
+	CONSTRAINT PKOrderTble PRIMARY KEY (OrdNo),
+	CONSTRAINT FKCustNo FOREIGN KEY (CustNo) REFERENCES Customer,
+	CONSTRAINT FKEmpNo FOREIGN KEY (EmpNo) REFERENCES Employee
+);
+
+INSERT INTO OrderTbl VALUES ('O1116324', '01/23/2017', 'C0954327', 'E8544399');
+INSERT INTO OrderTbl VALUES ('O2334661', '01/14/2017', 'C0954327', 'E1329594');
+INSERT INTO OrderTbl VALUES ('O3331222', '01/13/2017', 'C1010398');
+INSERT INTO OrderTbl VALUES ('O2233457', '01/12/2017', 'C2388597', 'E9884325');
+INSERT INTO OrderTbl VALUES ('O4714645', '01/11/2017', 'C2388597', 'E1329594');
+INSERT INTO OrderTbl VALUES ('O5511365', '01/22/2017', 'C3340959', 'E9884325');
+INSERT INTO OrderTbl VALUES ('O7989497', '01/16/2017', 'C3499503', 'E9345771');
+INSERT INTO OrderTbl VALUES ('O1656777', '02/11/2017', 'C8543321');
+INSERT INTO OrderTbl VALUES ('07959898', '02/19/2017', 'C8543321', 'E8544399');
